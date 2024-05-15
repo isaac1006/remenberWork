@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, sans-serif; /* Establece la fuente para todo el documento */
+    background-color: #e2e2e2; /* Color de fondo */
+    color: #281900; /* Color de texto principal */
+    margin: 0; /* Elimina márgenes por defecto */
+    padding: 0; /* Elimina relleno por defecto */
+}
+
+header {
+    background-color: #ffd027; /* Color de fondo del encabezado */
+    padding: 10px; /* Espacio interno del encabezado */
+    text-align: right; /* Alineación del texto a la derecha */
+    color: #281900; /* Color de texto del encabezado */
+}
+
+.paginaInicial li {
+    display: inline-block; /* Muestra los elementos de lista en línea */
+    margin-left: 10px; /* Espacio entre elementos de lista */
+    cursor: pointer; /* Cambia el cursor al pasar sobre los elementos de lista */
+}
+
+.IngresoSistema {
+    padding: 20px; /* Espacio interno del contenedor de ingreso al sistema */
+    background-color: #eeff5c; /* Color de fondo del contenedor */
+    border-radius: 8px; /* Bordes redondeados */
+    margin-top: 20px; /* Espacio superior */
+    text-align: center; /* Alineación del contenido al centro */
+}
+
+form {
+    display: flex; /* Distribuye los elementos del formulario en línea */
+    flex-direction: column; /* Orientación de los elementos (columna) */
+    align-items: center; /* Alineación de los elementos al centro */
+}
+
+label {
+    margin-bottom: 10px; /* Espacio inferior del texto */
+}
+
+input {
+    padding: 10px; /* Espacio interno del campo de entrada */
+    margin-bottom: 10px; /* Espacio inferior del campo de entrada */
+    width: 250px; /* Ancho del campo de entrada */
+    border: 1px solid #7a7672; /* Borde del campo de entrada */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+button {
+    padding: 10px 20px; /* Espacio interno del botón */
+    background-color: #281900; /* Color de fondo del botón */
+    color: #e2e2e2; /* Color de texto del botón */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+}
+
+button:hover {
+    background-color: #7a7672; /* Color de fondo del botón al pasar el cursor */
+}
