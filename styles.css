@@ -9,8 +9,9 @@ body {
 header {
     background-color: #ffd027; /* Color de fondo del encabezado */
     padding: 10px; /* Espacio interno del encabezado */
-    text-align: right; /* Alineación del texto a la derecha */
+    text-align: center; /* Alineación del texto a la derecha */
     color: #281900; /* Color de texto del encabezado */
+    font-size:large;
 }
 
 .paginaInicial li {
@@ -41,7 +42,7 @@ input {
     padding: 10px; /* Espacio interno del campo de entrada */
     margin-bottom: 10px; /* Espacio inferior del campo de entrada */
     width: 250px; /* Ancho del campo de entrada */
-    border: 1px solid #7a7672; /* Borde del campo de entrada */
+    border: 1px solid #55504b; /* Borde del campo de entrada */
     border-radius: 5px; /* Bordes redondeados */
 }
 
