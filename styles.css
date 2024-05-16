@@ -1,59 +1,87 @@
 body {
-    font-family: Arial, sans-serif; /* Establece la fuente para todo el documento */
+    font-family: Arial, sans-serif;
     background-color: #e2e2e2; /* Color de fondo */
     color: #281900; /* Color de texto principal */
-    margin: 0; /* Elimina márgenes por defecto */
-    padding: 0; /* Elimina relleno por defecto */
+    margin: 0;
+    padding: 0;
+    border-radius: 2px;
 }
 
 header {
-    background-color: #ffd027; /* Color de fondo del encabezado */
-    padding: 10px; /* Espacio interno del encabezado */
-    text-align: right; /* Alineación del texto a la derecha */
-    color: #281900; /* Color de texto del encabezado */
+    margin-top: 10px;
+    border-radius: 10px;
+    background-color: #0d2843; /* Color de fondo del encabezado */
+    padding: 20px;
+    text-align: center;
+    color: #e2e2e2; /* Color de texto del encabezado */
+    font-size: x-large;
+}
+.paginaInicial li {
+    display: inline-block;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.paginaInicial li a {
+    text-decoration: none; /* Quitar subrayado de los enlaces dentro de los <li> */
+    color: #e2e2e2; /* Color de texto para los enlaces */
+    font-weight: bold;
 }
 
-.paginaInicial li {
-    display: inline-block; /* Muestra los elementos de lista en línea */
-    margin-left: 10px; /* Espacio entre elementos de lista */
-    cursor: pointer; /* Cambia el cursor al pasar sobre los elementos de lista */
+.paginaInicial li a:hover {
+    color: #adecca; /* Cambiar color de texto al pasar el mouse sobre los enlaces */
 }
+
 
 .IngresoSistema {
-    padding: 20px; /* Espacio interno del contenedor de ingreso al sistema */
-    background-color: #eeff5c; /* Color de fondo del contenedor */
-    border-radius: 8px; /* Bordes redondeados */
-    margin-top: 20px; /* Espacio superior */
-    text-align: center; /* Alineación del contenido al centro */
+    padding: 30px;
+    background-color: #0e1d28; /* Color de fondo del contenedor de ingreso al sistema */
+    border-radius: 8px;
+    margin-top: 2px;
+    text-align: center;
+    height: 50vh;
 }
 
 form {
-    display: flex; /* Distribuye los elementos del formulario en línea */
-    flex-direction: column; /* Orientación de los elementos (columna) */
-    align-items: center; /* Alineación de los elementos al centro */
+    background-color: #102f3d; /* Color de fondo del formulario */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+    border-radius: 20px;
 }
 
 label {
-    margin-bottom: 10px; /* Espacio inferior del texto */
+    color: #e2e2e2; /* Color de texto de las etiquetas */
+    font-size: xx-large;
+    margin-bottom: 10px;
 }
 
 input {
-    padding: 10px; /* Espacio interno del campo de entrada */
-    margin-bottom: 10px; /* Espacio inferior del campo de entrada */
-    width: 250px; /* Ancho del campo de entrada */
-    border: 1px solid #7a7672; /* Borde del campo de entrada */
-    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px;
+    margin-bottom: 19px;
+    width: 250px;
+    border: 1px solid #7a7672;
+    border-radius: 10px;
 }
 
 button {
-    padding: 10px 20px; /* Espacio interno del botón */
-    background-color: #281900; /* Color de fondo del botón */
+    padding: 10px 20px;
+    background-color: #0d4555; /* Color de fondo del botón */
     color: #e2e2e2; /* Color de texto del botón */
-    border: none; /* Sin borde */
-    border-radius: 5px; /* Bordes redondeados */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 button:hover {
-    background-color: #7a7672; /* Color de fondo del botón al pasar el cursor */
+    background-color: #006070; /* Color de fondo del botón al pasar el cursor */
+}
+
+footer {
+    background-color: #313034; /* Color de fondo del footer */
+    border-radius: 0 0 15px 15px;
+    color: #e2e2e2; /* Color de texto del footer */
+    font-size: large;
+    padding: 10px;
+    text-align: center;
 }
