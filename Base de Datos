@@ -1,0 +1,62 @@
+
+A continuacion se generea el codigo para la base de datos del proyecto en MySQL
+
+CREATE DATABASE remenberWorkBD;
+USE remenberWorkBD;
+
+-- Tabla de INDFORMACION DE USUARIOS 
+
+CREATE TABLE INFORMACION_USUARIOS (
+    usuarioID INT PRIMARY KEY,
+    NOMBRE VARCHAR(255),
+    CEDULA INT UNIQUE,
+    EMAIL VARCHAR(255),
+    TELEFONO VARCHAR(20)
+);
+
+-- Tabla de SUPERPOSICIONES
+CREATE TABLE SUPERVISIONES (
+    supervisionID INT PRIMARY KEY,
+    usuarioID INT,
+    tipologiaID INT,
+    PLACA VARCHAR(20),
+    FECHA DATE,
+    FOREIGN KEY (usuarioID) REFERENCES INFORMACION_USUARIOS(usuarioID),
+    FOREIGN KEY (tipologiaID) REFERENCES TIPOLOGIAS(tipologiaID)
+);
+
+-- Tabla de TRABAJO TUTELADO
+CREATE TABLE TRABAJOTUTELADO (
+    tuteladoID INT PRIMARY KEY,
+    usuarioID INT,
+    tipologiaID INT,
+    PLACA VARCHAR(20),
+    FECHA DATE,
+    NombreDeTutor VARCHAR(255),
+    FOREIGN KEY (usuarioID) REFERENCES INFORMACION_USUARIOS(usuarioID),
+    FOREIGN KEY (tipologiaID) REFERENCES TIPOLOGIAS(tipologiaID)
+);
+
+-- Tabla de TIPOLOGIAS
+CREATE TABLE TIPOLOGIAS (
+    tipologiaID INT PRIMARY KEY,
+    nombreDeTipologia VARCHAR(255)
+);
+
+-- Tabla de RECORDATORIOS
+CREATE TABLE RECORDATORIOS (
+    recordatorioID INT PRIMARY KEY,
+    tareaParaRecordar VARCHAR(255),
+    fecha DATE
+);
+-- Tabla de ACCESO 
+CREATE TABLE ACCESO (
+    accesoID INT PRIMARY KEY,
+    usuarioID INT,
+    profesion VARCHAR(255),
+    acceso_a VARCHAR(255),
+    cedula INT,
+    contraseña VARCHAR(255),
+    FOREIGN KEY (usuarioID) REFERENCES INFORMACION_USUARIOS(usuarioID)
+);
+
