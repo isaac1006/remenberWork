@@ -16,12 +16,21 @@ header {
     color: #e2e2e2; /* Color de texto del encabezado */
     font-size: x-large;
 }
-
 .paginaInicial li {
     display: inline-block;
     margin-left: 10px;
     cursor: pointer;
 }
+.paginaInicial li a {
+    text-decoration: none; /* Quitar subrayado de los enlaces dentro de los <li> */
+    color: #e2e2e2; /* Color de texto para los enlaces */
+    font-weight: bold;
+}
+
+.paginaInicial li a:hover {
+    color: #adecca; /* Cambiar color de texto al pasar el mouse sobre los enlaces */
+}
+
 
 .IngresoSistema {
     padding: 30px;
