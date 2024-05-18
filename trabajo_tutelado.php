@@ -16,6 +16,10 @@
         <label for="fecha">placa de vehiculo:</label>
         <input type="date" name="fecha"  required><br>
 
+        <label for="archivo">selecione un archivo:</label>
+        <input type="file" id="archivo" name="archivo"  required><br>
+
+
         
         <input type="submit" value="Registrar">
     </form>
