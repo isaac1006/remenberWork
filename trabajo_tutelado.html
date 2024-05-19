@@ -6,21 +6,23 @@
     <link rel="stylesheet" href="styles.css">
     <title>Document</title>
 </head>
+<header> 
+    <h1> BIENVENIDO: "Registrar actividad de trabajo tutelado."</h1>
+
+</header>
 <body>
+    
     <form action="conexion.php" method="post">
-        <label for="nombreDeTutor">nombre del tutor:</label>
+        <label for="nombreDeTutor">Nombre del tutor:</label>
         <input type="text" name="nombreDeTutor" required><br>
 
-        <label for="nombreDeSupervizado">nombre del Inspector:</label>
+        <label for="nombreDeSupervizado">Nombre del Inspector:</label>
         <input type="text" name="nombreDeSupervizado" required><br>
         
-        <label for="placa">placa de vehiculo:</label>
+        <label for="placa">Placa de vehiculo:</label>
         <input type="text" name="placa"  required><br>
 
-        <label for="fecha">placa de vehiculo:</label>
-        <input type="date" name="fecha"  required><br>
-
-        <label for="archivo">selecione un archivo:</label>
+        <label for="archivo">Seleccione un archivo:</label>
         <input type="file" id="archivo" name="archivo"  required><br>
 
 
@@ -28,4 +30,7 @@
         <input type="submit" value="Registrar">
     </form>
 </body>
+<footer>
+    <p>&copy; Todos los derechos reservados</p>
+</footer>
 </html>
