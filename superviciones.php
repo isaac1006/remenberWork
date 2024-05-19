@@ -6,6 +6,7 @@
     <title>Document</title>
 </head>
 <body>
+   
     <form action="conexion.php" method="post">
         <label for="nombre">nombre:</label>
         <input type="text" name="nombre" required><br>
