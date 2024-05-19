@@ -7,20 +7,12 @@
     <link rel="stylesheet" href="styles.css"> <!--Enlace al archivo CSS externo para diseño -->
 </head>
 <header class="paginaInicial">
-    <h1>"Acceso de Administrador"</h1>
+    <h1>"Ingresaste en administrador"</h1>
     <li><a href="./index.html">Ingresar</a></li>
     <li><a href="./administrador.html">Administrador</a></li>
 </header>
 <body>
-    <div class="IngresoSistema">
-        <form action="loginAdm.php">
-            <label for="usuarioAdm" required >Ingrese usuario</label>
-            <input type="text">
-            <input  form="contrasenaAdm" type="text" required placeholder=" Escriba su contraseña ">
-            <button id="IngresarADM">Ingresar</button>
-        </form>
-
-    </div>
+  
 </body>
 <footer>
     <p>&copy; Todos los derechos reservados</p>
