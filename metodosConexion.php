@@ -106,22 +106,27 @@ class MetodosConexion {
         }
     }
 
-    // Método para validar si existen los campos en la base de datos
-    public function validarIngreso($usuario, $contrasena, $caualquiePagina) {
-        // Usar una consulta preparada para evitar inyecciones SQL
-        $stmt = $this->conn->prepare("SELECT * FROM usuarios WHERE usuario = ? AND contrasena = ?");
-        $stmt->bind_param("ss", $usuario, $contrasena);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            // Redirigir a la siguiente página si los datos son correctos
-            header("Location:$cualquierPagina");
-            exit();
+    public function validarIngreso($usuario, $contrasena, $tabla, $condicion,$cualquierPagina) {
+        // Usar el método obtenerDatos para obtener los datos del usuario
+        $datos_usuario = $this->obtenerDatos($tabla, $condicion);
+        // Verificar si se encontraron datos del usuario
+        if (!empty($datos_usuario)) {
+            // Obtener la contraseña del usuario
+            $contrasena_usuario = $datos_usuario[0]['contrasena'];
+    
+            // Verificar si la contraseña proporcionada coincide con la contraseña del usuario
+            if ($contrasena === $contrasena_usuario) {
+                // Redirigir a la siguiente página si los datos son correctos
+                header("Location:$cualquierPagina");
+                exit();
+            } else {
+                                
+               echo "<script>document.getElementById('mensajeError').innerText = 'Error: Usuario o contraseña incorrectos.';</script>";
+                
+            }
         } else {
             echo "Usuario o contraseña incorrectos.";
         }
-        $stmt->close();
     }
 }
 ?>

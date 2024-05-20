@@ -1,7 +1,7 @@
 <?php
+
 // Incluye tu archivo de clase
 require_once 'MetodosConexion.php';
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verificar que los campos no sean nulos
     if (isset($_POST['usuarioAdm'], $_POST['contrasenaAdm'])) {
@@ -12,21 +12,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!empty($usuarioAdm) && !empty($contrasenaAdm)) {
             try {
                 // Crear una instancia de la clase
-                $conexion = new MetodosConexion('localhost', 'root', 'password', 'remenberWorkdb', '3306');
+                $conexion = new MetodosConexion('localhost', 'root','', 'remenberWorkbd', '3306');
                 if($conexion==true){
                 // Llamar al método para validar ingreso
-                $conexion->validarIngreso($usuarioAdm, $contrasenaAdm, '/.administradorLogin.php');
+                $conexion->validarIngreso($usuarioAdm, $contrasenaAdm,'administrador',"usuario='$usuarioAdm'" ,'administradorLogin.php');
 
                 // Cerrar la conexión
                 $conexion->cerrarConexion();
-                echo ("se realizo la conexion");
-
                 }else{
-                    echo(" erro en la conexion");
+                    echo(" error en la conexion");
 
                 }
-
-             
             } catch (Exception $e) {
                 echo "Error: No se pudo establecer la conexión con la base de datos. Por favor, intenta más tarde.";
             }

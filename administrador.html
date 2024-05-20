@@ -13,14 +13,15 @@
 </header>
 <body>
     <div class="IngresoSistema">
-        <form action="loginAdm.php">
-            <label for="usuarioAdm" required >Ingrese usuario</label>
-            <input type="text">
-            <input  form="contrasenaAdm" type="text" required placeholder=" Escriba su contraseña ">
-            <button id="IngresarADM">Ingresar</button>
+        <form action="loginAdm.php" method="POST">
+            <label for="usuarioAdm">Ingrese usuario</label>
+            <input type="text" name="usuarioAdm" required>
+            <label for="contrasenaAdm">Ingrese contraseña</label>
+            <input type="password" name="contrasenaAdm" required placeholder="Escriba su contraseña">
+            <button id="IngresarADM" type="submit">Ingresar</button>
         </form>
-
     </div>
+    <div id="mensajeError" style="color: red;"></div>
 </body>
 <footer>
     <p>&copy; Todos los derechos reservados</p>
