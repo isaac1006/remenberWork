@@ -8,28 +8,35 @@ class MetodosConexion {
     private $conn;
 
     // Constructor para establecer la conexión
-    public function __construct($servername, $username, $password, $dbname, $puerto) {
-        $this->servername = $servername;
-        $this->username = $username;
-        $this->password = $password;
-        $this->dbname = $dbname;
-        $this->puerto = $puerto;
+    public function __construct($config) {
+        $this->servername = $config['servername'];
+        $this->username = $config['username'];
+        $this->password = $config['password'];
+        $this->dbname = $config['dbname'];
+        $this->puerto = $config['puerto'];
 
         // Crear conexión
-        $this->conn = new mysqli($servername, $username, $password, $dbname, $puerto);
+        $this->conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname, $this->puerto);
 
         // Verificar la conexión
         if ($this->conn->connect_error) {
             die("Conexión fallida: " . $this->conn->connect_error);
         }
-        echo "Conexión establecida correctamente.";
+        echo "Conexión establecida correctamente.<br>";
     }
 
     // Método para cerrar la conexión
     public function cerrarConexion() {
         $this->conn->close();
-        echo "Conexión cerrada correctamente.";
+        echo "Conexión cerrada correctamente.<br>";
     }
+
+    // Método para obtener la conexión
+    public function getConnection() {
+        return $this->conn;
+    }
+
+  
 
     // Método para insertar datos
     public function insertarDatos($tabla, $datos) {
@@ -59,6 +66,10 @@ class MetodosConexion {
             $sql .= " WHERE $condicion";
         }
         $result = $this->conn->query($sql);
+        if($result=== false){
+            echo "error en la conexion: ".$this->conn->error;
+            return false;
+        }
         if ($result->num_rows > 0) {
             return $result->fetch_all(MYSQLI_ASSOC);
         } else {
@@ -105,12 +116,12 @@ class MetodosConexion {
             echo "Error al eliminar datos: " . $this->conn->error;
         }
     }
-
+       // Método para validar si existen los campos en la base de datos
     public function validarIngreso($usuario, $contrasena, $tabla, $condicion,$cualquierPagina) {
         // Usar el método obtenerDatos para obtener los datos del usuario
         $datos_usuario = $this->obtenerDatos($tabla, $condicion);
         // Verificar si se encontraron datos del usuario
-        if (!empty($datos_usuario)) {
+        if ($datos_usuario !== false && !empty($datos_usuario)) {
             // Obtener la contraseña del usuario
             $contrasena_usuario = $datos_usuario[0]['contrasena'];
     
