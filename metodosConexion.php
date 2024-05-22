@@ -38,7 +38,7 @@ class MetodosConexion {
 
   
 
-    // Método para insertar datos
+    // Método para insertar datos en la base de datos //
     public function insertarDatos($tabla, $datos) {
         $campos = implode(', ', array_keys($datos));
         $valores = implode(', ', array_fill(0, count($datos), '?'));
