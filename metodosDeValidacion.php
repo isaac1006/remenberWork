@@ -1,8 +1,15 @@
 <?php
+class metodosDeValidacion {
+    private $conn;
+
+    public function __construct($conn) {
+        $this->conn = $conn;
+    }
+
     // Método para verificar si un correo existe
     public function correoExiste($correo) {
         $mensaje = ''; // Variable para almacenar el mensaje
-        $verificarCorreoExi = "SELECT COUNT(*) AS total FROM `informacion_usuarios` WHERE EMAIL = ?"; // Consulta con alias total para guardar la consulta en verificarCorreo
+        $verificarCorreoExi = "SELECT COUNT(*) AS total FROM `informacion_usuarios` WHERE emailUsuario = ?"; // Consulta con alias total para guardar la consulta en verificarCorreo
         $stmt = $this->conn->prepare($verificarCorreoExi);
         
         if ($stmt) {
@@ -24,6 +31,8 @@
 
         return $mensaje; // Devolver el mensaje
     }
+}
+?>
     /*$conexion = new MetodosConexion($config);
 $correo = "ejemplo@correo.com";
 echo $conexion->correoExiste($correo);

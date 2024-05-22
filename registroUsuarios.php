@@ -1,30 +1,54 @@
 <?php
-// Incluye tu archivo de clase
+// Incluye tus archivos de clase
 require_once 'MetodosConexion.php';
 // Cargar configuración
 $config = require 'config.php';
 
-if($_SERVER['REQUEST_METHOD']==$_POST){
-    // unificar campos para hacer validacion de ingreso //
-    $camposDeUsuario=array('nombreUsuario','cedulaUsuario','emailUsuario','telefonoUsuario');
-    $validar=true;
-    foreach($campos as $camposDeUsuario){
-        if(!isset($_POST[$campos]) || empty($_POST[$campos])){
-            $validar=false;
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Unificar campos para hacer validación de ingreso
+    $camposDeUsuario = array('nombreUsuario', 'cedulaUsuario', 'emailUsuario', 'telefonoUsuario');
+    $validar = true;
+
+    foreach ($camposDeUsuario as $campo) {
+        if (!isset($_POST[$campo]) || empty($_POST[$campo])) {
+            $validar = false;
             break;
         }
     }
-    if($validar){ // realizar todas las validaciones  // 
-        // 1 Tenemos los valores del formulario posten variables //
-        $nombre=trim($_POST['nombreUsuario'])
-        $cedula=trim($_POST['cedulaUsuario'])
-        $email=trim($_POST['emailUsuario'])
-        $telefono=trim($_POST['lefonoUsuario'])
 
-        // iniciamos conexion con base de datos //
-        $conexion=new MetodosConexion($config);
-        echo $conexion->correoExiste($email);
-       $conexion->cerrarConexion(); */
+    if ($validar) { // Realizar todas las validaciones
+        // Tenemos los valores del formulario en variables
+        $nombre = trim($_POST['nombreUsuario']);
+        $cedula = trim($_POST['cedulaUsuario']);
+        $email = trim($_POST['emailUsuario']);
+        $telefono = trim($_POST['telefonoUsuario']);
+
+        // Iniciamos conexión con base de datos
+        $conexion = new MetodosConexion($config);
+        // validamos con el metodo que no exista el correo //
+    
+        $mensajeCorreo = $conexion->correoExiste($email);
+        if ($mensajeCorreo === "El correo ya está registrado. Inicie sesión o use otro correo.") {
+            echo $mensajeCorreo;
+        } else {
+            // preparo los datos que enviare con el metodo cargar datos //
+            $datos = [
+                'nombre' => $nombre,
+                'cedula' => $cedula,
+                'email' => $email,
+                'telefono' => $telefono
+            ];
+               // ejecuto la inyeccion de los datos //
+            if ($conexion->insertarDatos('informacion_usuarios', $datos)) {
+                echo "Se han insertado los datos correctamente";
+            } else {
+                echo "Hubo un error al insertar los datos";
+            }
+        }
+
+        $conexion->cerrarConexion();
+    } else {
+        echo "Todos los campos son obligatorios";
     }
 }
 ?>
