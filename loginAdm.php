@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   $condicion = "usuario = '$usuarioAdm'"; //consulta sql
                
                 // Llamar al método para validar ingreso
-                if ($conexion->validarIngreso($usuarioAdm, $contrasenaAdm, 'administrador',$condicion,'formularios_admin.php')) { // administrador es la tabla//
+                if ($conexion->validarIngreso($usuarioAdm, $contrasenaAdm, 'administrador',$condicion,'formulariosAdministrador.html')) { // administrador es la tabla//
                     // Redirigir a la página de formularios
                     header("Location: formularios_admin.php");
                     exit();

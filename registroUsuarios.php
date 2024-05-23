@@ -6,7 +6,7 @@ $config = require 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Unificar campos para hacer validación de ingreso
-    $camposDeUsuario = array('Placa', 'Fecha');
+    $camposDeUsuario = array('nombreUsuario', 'cedulaUsuario', 'emailUsuario', 'telefonoUsuario');
     $validar = true;
 
     foreach ($camposDeUsuario as $campo) {
@@ -18,27 +18,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($validar) { // Realizar todas las validaciones
         // Tenemos los valores del formulario en variables
-        $Placa = trim($_POST['Placa']);
-        $Fecha = trim($_POST['Fecha']);
-      
+        $nombre = trim($_POST['nombreUsuario']);
+        $cedula = trim($_POST['cedulaUsuario']);
+        $email = trim($_POST['emailUsuario']);
+        $telefono = trim($_POST['telefonoUsuario']);
 
         // Iniciamos conexión con base de datos
         $conexion = new MetodosConexion($config);
         // validamos con el metodo que no exista el correo //
     
-       
+        $mensajeCorreo = $conexion->correoExiste($email);
         if ($mensajeCorreo === "El correo ya está registrado. Inicie sesión o use otro correo.") {
             echo $mensajeCorreo;
         } else {
             // preparo los datos que enviare con el metodo cargar datos //
             $datos = [
-            
-                'Placa' => $Placa,
-                'Fecha' => $Fecha,
-                
+                'nombre' => $nombre,
+                'cedula' => $cedula,
+                'email' => $email,
+                'telefono' => $telefono
             ];
                // ejecuto la inyeccion de los datos //
-            if ($conexion->insertarDatos('Superviciones.php', $datos)) {
+            if ($conexion->insertarDatos('informacion_usuarios', $datos)) {
                 echo "Se han insertado los datos correctamente";
             } else {
                 echo "Hubo un error al insertar los datos";

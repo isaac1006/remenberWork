@@ -38,7 +38,7 @@ class MetodosConexion {
 
   
 
-    // Método para insertar datos
+    // Método para insertar datos en la base de datos //
     public function insertarDatos($tabla, $datos) {
         $campos = implode(', ', array_keys($datos));
         $valores = implode(', ', array_fill(0, count($datos), '?'));
@@ -138,6 +138,33 @@ class MetodosConexion {
         } else {
             echo "Usuario o contraseña incorrectos.";
         }
+    }
+    // metodos de validacion //   
+
+     // Método para verificar si un correo existe
+    public function correoExiste($correo) {
+        $mensaje = ''; // Variable para almacenar el mensaje
+        $verificarCorreoExi = "SELECT COUNT(*) AS total FROM `informacion_usuarios` WHERE emailUsuario = ?";
+        $stmt = $this->conn->prepare($verificarCorreoExi);
+        
+        if ($stmt) {
+            $stmt->bind_param("s", $correo);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+
+            if (intval($row['total']) == 1) {
+                $mensaje = "El correo ya está registrado. Inicie sesión o use otro correo.";
+            } else {
+                $mensaje = "El correo no está registrado. ¿Desea registrarlo?";
+            }
+
+            $stmt->close();
+        } else {
+            $mensaje = "Error en la consulta: " . $this->conn->error;
+        }
+
+        return $mensaje; // Devolver el mensaje
     }
 }
 ?>
