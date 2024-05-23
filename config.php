@@ -3,6 +3,6 @@ return [
     'servername' => 'localhost',
     'username' => 'root',
     'password' => '',
-    'dbname' => 'remenberWorkbd',
+    'dbname' => 'remenberworkbd',
     'puerto' => '3306'
 ];

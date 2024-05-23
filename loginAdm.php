@@ -1,4 +1,5 @@
 <?php
+var_dump($_POST);
 
 // Incluye tu archivo de clase
 require_once 'MetodosConexion.php';
