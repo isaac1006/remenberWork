@@ -1,30 +1,51 @@
 <?php
-// procesar_formulario.php
+// Incluye tus archivos de clase
+require_once 'MetodosConexion.php';
+// Cargar configuración
+$config = require 'config.php';
 
-$servername = "localhost"; //  servidor 
-$username = "root"; // Tu usuario de la base de datos
-$password = ""; // Tu contraseña de la base de datos
-$dbname = "remenberWorkBD"; // El nombre de tu base de datos
-
-// Crear la conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Verificar la conexión
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Unificar campos para hacer validación de ingreso
     $nombreDeTipologia = $conn->real_escape_string($_POST['nombreDeTipologia']);
+    $validar = true;
 
-    $sql = "INSERT INTO tipologias (nombreDeTipologia) VALUES ('$nombreDeTipologia')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "Nueva tipología agregada exitosamente";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+    foreach ($nombreDeTipologia as $campo) {
+        if (!isset($_POST[$campo]) || empty($_POST[$campo])) {
+            $validar = false;
+            break;
+        }
     }
 
-    $conn->close();
+    if ($validar) { // Realizar todas las validaciones
+        // Tenemos los valores del formulario en variables
+        $Tipologia = trim($_POST['Tipologia']);
+        $Fecha = trim($_POST['Fecha']);
+
+        // Iniciamos conexión con base de datos
+        $conexion = new MetodosConexion($config);
+        // validamos con el metodo que no exista el correo //
+    
+       
+        if ($mensajeCorreo === "El correo ya está registrado. Inicie sesión o use otro correo.") {
+            echo $mensajeCorreo;
+        } else {
+            // preparo los datos que enviare con el metodo cargar datos //
+            $datos = [
+                'Tipologia' => $Tipologia,
+                'Fecha' => $Fecha,
+                
+            ];
+               // ejecuto la inyeccion de los datos //
+            if ($conexion->insertarDatos('nombreDeTipologia', $datos)) {
+                echo "Se han insertado los datos correctamente";
+            } else {
+                echo "Hubo un error al insertar los datos";
+            }
+        }
+
+        $conexion->cerrarConexion();
+    } else {
+        echo "Todos los campos son obligatorios";
+    }
 }
 ?>

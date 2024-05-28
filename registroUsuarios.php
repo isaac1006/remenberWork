@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $cedula = trim($_POST['cedulaUsuario']);
         $email = trim($_POST['emailUsuario']);
         $telefono = trim($_POST['telefonoUsuario']);
+        $profesion= trim($_POST['profesioUsuario']);
 
         // Iniciamos conexión con base de datos
         $conexion = new MetodosConexion($config);
@@ -36,7 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'nombre' => $nombre,
                 'cedula' => $cedula,
                 'email' => $email,
-                'telefono' => $telefono
+                'telefono' => $telefono,
+                'profesion'=>$profesion
             ];
                // ejecuto la inyeccion de los datos //
             if ($conexion->insertarDatos('informacion_usuarios', $datos)) {
