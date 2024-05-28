@@ -1,16 +1,33 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>Formulario de Tipologías</title>
 </head>
+<header>
+    <h1> BIENVENIDO: al registro de Tipologías" </h1>
+</header>
 <body>
-    <h2>Agregar Nueva Tipología</h2>
-    <form action="procesar_formulario.php" method="post">
-        <label for="nombreDeTipologia">Nombre de la Tipología:</label><br>
-        <input type="text" id="nombreDeTipologia" name="nombreDeTipologia" required><br><br>
-        <input type="submit" value="Agregar Tipología">
+   <div class="Tipologías">
+    <form action="registroTipologias.php" method="POST">
+        
+        <label for="nombreDeTipologia">nombreDeTipologia:</label>
+        <input type="text" name="Tipología"  required><br>
+        
+        <label for="fecha">Fecha de Supervicion:</label>
+        <input type="date" name="fecha"  required><br>
+
+        
+        <input type="submit" value="Registrar">
     </form>
+
+   </div>
+    
 </body>
+<footer>
+    <p>&copy; Todos los derechos reservados</p>
+</footer>
 </html>
+
