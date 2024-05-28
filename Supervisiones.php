@@ -5,14 +5,15 @@ require_once 'MetodosConexion.php';
 $config = require 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    var_dump($_POST);
     // Unificar campos para hacer validación de ingreso
-    $camposDeUsuario = array('Placa', 'Fecha');
+    $campos = array('Placa', 'Fecha'); // Aquí corregimos el nombre de la variable
     $validar = true;
 
-    foreach ($camposDeUsuario as $campo) {
+    foreach ($campos as $campo) { // Aquí también corregimos el nombre de la variable
         if (!isset($_POST[$campo]) || empty($_POST[$campo])) {
             $validar = false;
-            break;
+            // Puedes agregar un mensaje de error aquí si lo deseas
         }
     }
 
@@ -20,34 +21,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Tenemos los valores del formulario en variables
         $Placa = trim($_POST['Placa']);
         $Fecha = trim($_POST['Fecha']);
-      
 
         // Iniciamos conexión con base de datos
         $conexion = new MetodosConexion($config);
-        // validamos con el metodo que no exista el correo //
-    
-       
-        if ($mensajeCorreo === "El correo ya está registrado. Inicie sesión o use otro correo.") {
-            echo $mensajeCorreo;
-        } else {
-            // preparo los datos que enviare con el metodo cargar datos //
-            $datos = [
-            
-                'Placa' => $Placa,
-                'Fecha' => $Fecha,
-                
-            ];
-               // ejecuto la inyeccion de los datos //
-            if ($conexion->insertarDatos('Superviciones.php', $datos)) {
-                echo "Se han insertado los datos correctamente";
-            } else {
-                echo "Hubo un error al insertar los datos";
-            }
-        }
+        
 
-        $conexion->cerrarConexion();
-    } else {
-        echo "Todos los campos son obligatorios";
+        
+        // Verificar si la placa ya está registrada
+       // Iniciamos conexión con base de datos
+        $conexion = new MetodosConexion($config);
     }
+    // Verificar si la placa ya está registrada
+    if ($conexion->placaExiste($Placa)) {
+    echo "La placa ya está registrada. Por favor, ingrese otra placa.";
+    } else {
+    // Preparar los datos para la inserción
+    $datos = [
+        'Placa' => $Placa,
+        'Fecha' => $Fecha
+    ];
+    
+    // Insertar los datos en la tabla 'supervisiones' utilizando el método insertarDatos
+    if ($conexion->insertarDatos('supervisiones', $datos)) {
+        echo "Se han insertado los datos correctamente";
+    } else {
+        echo "Hubo un error al insertar los datos";
+    }
+}
+
+    // Cerrar la conexión
+    $conexion->cerrarConexion();
 }
 ?>

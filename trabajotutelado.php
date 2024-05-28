@@ -5,11 +5,12 @@ require_once 'MetodosConexion.php';
 $config = require 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    var_dump($_POST);
     // Unificar campos para hacer validación de ingreso
-    $camposDeUsuario = array('NombreTutor', 'Placa', 'Fecha');
+    $camposTrabajoTutelado = array('NombreDeTutor', 'Placa', 'Fecha');
     $validar = true;
 
-    foreach ($camposDeUsuario as $campo) {
+    foreach ($camposTrabajoTutelado as $campo) {
         if (!isset($_POST[$campo]) || empty($_POST[$campo])) {
             $validar = false;
             break;
@@ -18,33 +19,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($validar) { // Realizar todas las validaciones
         // Tenemos los valores del formulario en variables
+        $NombreDeTutor = trim($_POST['NombreDeTutor']);
         $Placa = trim($_POST['Placa']);
         $Fecha = trim($_POST['Fecha']);
-        $NombreTutor= trim($_POST['Fecha']);
 
         // Iniciamos conexión con base de datos
         $conexion = new MetodosConexion($config);
-        // validamos con el metodo que no exista el correo //
-    
-       
-        if ($mensajeCorreo === "El correo ya está registrado. Inicie sesión o use otro correo.") {
-            echo $mensajeCorreo;
+        
+        // Verificar si la placa ya está registrada
+        if ($conexion->placaExiste($Placa)) {
+            echo "La placa ya está registrada. Por favor, ingrese otra placa.";
         } else {
-            // preparo los datos que enviare con el metodo cargar datos //
+            // Preparar los datos para la inserción
             $datos = [
-                'NombreTutor' => $NombreTutor,
+                'NombreDeTutor' => $NombreDeTutor,
                 'Placa' => $Placa,
-                'Fecha' => $Fecha,
-                
+                'Fecha' => $Fecha
             ];
-               // ejecuto la inyeccion de los datos //
-            if ($conexion->insertarDatos('trabajotutelado.php', $datos)) {
+            
+            // Insertar los datos en la tabla 'trabajotutelado'
+            if ($conexion->insertarDatos('trabajotutelado', $datos)) {
                 echo "Se han insertado los datos correctamente";
             } else {
                 echo "Hubo un error al insertar los datos";
             }
         }
 
+        // Cerrar la conexión
         $conexion->cerrarConexion();
     } else {
         echo "Todos los campos son obligatorios";
