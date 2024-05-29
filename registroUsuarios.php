@@ -6,7 +6,7 @@ $config = require 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Unificar campos para hacer validación de ingreso
-    $camposDeUsuario = array('nombreUsuario', 'cedulaUsuario', 'emailUsuario', 'telefonoUsuario');
+    $camposDeUsuario = array('nombreUsuario', 'cedulaUsuario', 'emailUsuario', 'contrasenaUser');
     $validar = true;
 
     foreach ($camposDeUsuario as $campo) {
@@ -21,30 +21,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $nombre = trim($_POST['nombreUsuario']);
         $cedula = trim($_POST['cedulaUsuario']);
         $email = trim($_POST['emailUsuario']);
-        $telefono = trim($_POST['telefonoUsuario']);
-        $profesion= trim($_POST['profesioUsuario']);
+        $contrasenaUser= trim($_POST['contrasenaUser']);
 
         // Iniciamos conexión con base de datos
         $conexion = new MetodosConexion($config);
-        // validamos con el metodo que no exista el correo //
-    
-        $mensajeCorreo = $conexion->correoExiste($email);
-        if ($mensajeCorreo === "El correo ya está registrado. Inicie sesión o use otro correo.") {
-            echo $mensajeCorreo;
+            // Verifica la conexión
+            if (!$conexion) {
+                die('Error de conexión: ' . mysqli_connect_error());
+            }
+         // valido con el metodo de existencia que no exista el campo para inyectarlo a la base de datos //
+         // 1 nombrede la tabla // 2 el campo // la variable post //
+        if ($conexion->campoExiste('registrodeusuarios','email',$email)) {
+            echo "El correo ya está registrado. Inicie sesión o use otro correo.";
         } else {
-            // preparo los datos que enviare con el metodo cargar datos //
+            // lado izquiero los campos de las tablas los datos que enviare con el metodo cargar datos //
             $datos = [
                 'nombre' => $nombre,
                 'cedula' => $cedula,
                 'email' => $email,
-                'telefono' => $telefono,
-                'profesion'=>$profesion
+                'contrasena' => $contrasenaUser
             ];
                // ejecuto la inyeccion de los datos //
-            if ($conexion->insertarDatos('informacion_usuarios', $datos)) {
+            if ($conexion->insertarDatos('registrodeusuarios', $datos)) {
                 echo "Se han insertado los datos correctamente";
             } else {
-                echo "Hubo un error al insertar los datos";
+                echo "Hubo un error al insertar los datos mentiras";
             }
         }
 

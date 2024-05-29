@@ -19,14 +19,25 @@
             <input type="text" name="cedulaUsuario" required>
             <label for="emailUsuario">Ingrese Email</label>
             <input type="email" name="emailUsuario" required>
-            <label for="telefonoUsuario">Ingrese telefono</label>
-            <input type="number" name="telefonoUsuario" required>
-            <label for="profesionUsuario">Registre profesion</label>
-            <input type="text" name="profesionUsuario" required>
+            <label for="contrasenaUser">ingrese su contraseña</label>
+            <input type="password" name="contrasenaUser" required>
             <button id="IngresarUsuario" type="submit">Registrar</button>
         </form>
     </div>
+    <div class="Tipologías">
+        <form action="registroTipologias.php" method="POST">
+            
+            <label for="nombreDeTipologia">nombreDeTipologia:</label>
+            <input type="text" name="nombreDeTipologia"  required><br>
+            
+            <label for="fecha">Fecha:</label>
+            <input type="date" name="fecha"  required><br>
+    
+            
+            <input type="submit" value="Registrar">
+        </form>
     <div id="mensajeError" style="color: red;"></div>
+
 </body>
 <footer>
     <p>&copy; Todos los derechos reservados</p>

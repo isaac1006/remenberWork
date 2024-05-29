@@ -26,13 +26,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // validamos con el metodo que no exista el correo //
     
        
-        if ($mensajeCorreo === "El correo ya está registrado. Inicie sesión o use otro correo.") {
+        if ($conexion->validarCampo()) {
             echo $mensajeCorreo;
         } else {
             // preparo los datos que enviare con el metodo cargar datos //
             $datos = [
                 'Tipologia' => $Tipologia,
-                'Fecha' => $Fecha,
+                'Fecha' => $Fecha
                 
             ];
                // ejecuto la inyeccion de los datos //

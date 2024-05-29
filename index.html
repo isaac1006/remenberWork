@@ -13,10 +13,10 @@
 </header>
 <body>
     <div class="IngresoSistema">
-        <form action="Post">
-            <label for="usuario">Ingrese numero de cedula</label>
-            <input type="number">
-            <input type="text" required placeholder=" Escriba su contraseña ">
+        <form action="loginUser.php" method="post">
+            <label for="usuario">Ingrese correo</label>
+            <input type="email" name="usuario">
+            <input type="text" name="contrasenaUser" placeholder=" Escriba su contraseña ">
             <button id="IngresaSistema">Ingresar</button>
         </form>
     </div>

@@ -140,31 +140,23 @@ class MetodosConexion {
         }
     }
     // metodos de validacion //   
-
-     // Método para verificar si un correo existe
-    public function correoExiste($correo) {
-        $mensaje = ''; // Variable para almacenar el mensaje
-        $verificarCorreoExi = "SELECT COUNT(*) AS total FROM `informacion_usuarios` WHERE emailUsuario = ?";
-        $stmt = $this->conn->prepare($verificarCorreoExi);
+  
+    // Método genérico para verificar si un campo existe en una tabla
+    public function campoExiste($tabla, $campo, $valor) {
+        $consulta = "SELECT COUNT(*) AS total FROM `$tabla` WHERE `$campo` = ?";
+        $stmt = $this->conn->prepare($consulta);
         
         if ($stmt) {
-            $stmt->bind_param("s", $correo);
+            $stmt->bind_param("s", $valor);
             $stmt->execute();
             $result = $stmt->get_result();
             $row = $result->fetch_assoc();
-
-            if (intval($row['total']) == 1) {
-                $mensaje = "El correo ya está registrado. Inicie sesión o use otro correo.";
-            } else {
-                $mensaje = "El correo no está registrado. ¿Desea registrarlo?";
-            }
-
             $stmt->close();
-        } else {
-            $mensaje = "Error en la consulta: " . $this->conn->error;
-        }
 
-        return $mensaje; // Devolver el mensaje
+            return intval($row['total']) > 0;
+        } else {
+            die("Error en la consulta: " . $this->conn->error);
+        }
     }
 }
 ?>

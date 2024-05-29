@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Tenemos los valores del formulario en variables
         $Placa = trim($_POST['Placa']);
         $Fecha = trim($_POST['Fecha']);
+        var_dump($placa);
 
         // Iniciamos conexión con base de datos
         $conexion = new MetodosConexion($config);
