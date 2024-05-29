@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $validar = false;
             // Puedes agregar un mensaje de error aquí si lo deseas
         }
+        
     }
 
     if ($validar) { // Realizar todas las validaciones
