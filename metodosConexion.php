@@ -22,7 +22,7 @@ class MetodosConexion {
         if ($this->conn->connect_error) {
             die("Conexión fallida: " . $this->conn->connect_error);
         }
-        echo "Conexión establecida correctamente.<br>";
+        echo "Conexión establecida correctamente .<br>";
     }
 
     // Método para cerrar la conexión
