@@ -7,12 +7,19 @@
     <title>Document</title>
 </head>
 <header>
-    <h1> BIENVENIDO: "Registrar" aqui va el nombre del Inspector" actividad Superviciones." </h1>
+    <h1>Bienvenido ______registra una nueva Supervisión </h1>
 </header>
 <body>
+    <div class="IngresoSistema">
+        <label for="">visualizar supervision realizada</label>
+        <textarea name="" id=""></textarea>
+
+    </div>
     
     <div class="IngresoSistema">
         <form action="supervisiones.php" method="post">
+        <label for="cargarTipologia">Selecciones la Tipologia a registrar: </label>
+        <select name="cargarTipologia" id=""></select>
 
         <label for="Placa">Placa de vehiculo:</label>
         <input type="text" name="Placa"  required><br>
@@ -24,6 +31,7 @@
         <input type="submit" value="Registrar">
         </form>
     </div>
+
 </body>
 <footer>
     <p>&copy; Todos los derechos reservados</p>
