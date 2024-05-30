@@ -18,8 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($validar) { // Realizar todas las validaciones
         // Tenemos los valores del formulario en variables
-        $Tipologia = trim($_POST['Tipologia']);
-        $Fecha = trim($_POST['Fecha']);
+        $Tipologia = trim($_POST['nombreDeTipologia']);
 
         // Iniciamos conexión con base de datos
         $conexion = new MetodosConexion($config);
@@ -31,8 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             // preparo los datos que enviare con el metodo cargar datos //
             $datos = [
-                'Tipologia' => $Tipologia,
-                'Fecha' => $Fecha
+                'Tipologia' => $Tipologia
                 
             ];
                // ejecuto la inyeccion de los datos //
