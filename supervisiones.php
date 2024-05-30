@@ -48,7 +48,7 @@
         }
         ?>
         </select>
-
+        <form action="registroSupervisiones.php" method="POST">
         <label for="Placa">Placa de vehiculo:</label>
         <input type="text" name="Placa"  required><br>
         

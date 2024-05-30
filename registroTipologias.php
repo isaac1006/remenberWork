@@ -7,7 +7,7 @@ $config = require 'config.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     var_dump($_POST);
     // Validación de campos del formulario
-    $campos = ['nombreDeTipologia'];
+    $campos = ['supervisiones'];
     $validar = true;
 
     foreach ($campos as $campo) {
