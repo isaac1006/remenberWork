@@ -5,29 +5,26 @@ require_once 'MetodosConexion.php';
 $config = require 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Unificar campos para hacer validación de ingreso
-    $nombreDeTipologia = $conn->real_escape_string($_POST['nombreDeTipologia']);
+    // Validación de campos del formulario
+    $campos = ['nombre', 'placa', 'tipologia', 'fecha'];
     $validar = true;
 
-    foreach ($nombreDeTipologia as $campo) {
+    foreach ($campos as $campo) {
         if (!isset($_POST[$campo]) || empty($_POST[$campo])) {
             $validar = false;
             break;
         }
     }
+    if ($validar) {
+        // Obtenemos los valores del formulario en variables
+        $nombre = trim($_POST['nombre']);
+        $placa = trim($_POST['placa']);
+        $tipologia = trim($_POST['tipologia']);
+        $fecha = trim($_POST['fecha']);
 
-    if ($validar) { // Realizar todas las validaciones
-        // Tenemos los valores del formulario en variables
-        $Tipologia = trim($_POST['nombreDeTipologia']);
 
         // Iniciamos conexión con base de datos
         $conexion = new MetodosConexion($config);
-        // validamos con el metodo que no exista el correo //
-    
-       
-        if ($conexion->validarCampo()) {
-            echo $mensajeCorreo;
-        } else {
             // preparo los datos que enviare con el metodo cargar datos //
             $datos = [
                 'Tipologia' => $Tipologia
@@ -38,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo "Se han insertado los datos correctamente";
             } else {
                 echo "Hubo un error al insertar los datos";
-            }
         }
 
         $conexion->cerrarConexion();
