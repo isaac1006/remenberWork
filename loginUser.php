@@ -16,21 +16,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Crear una instancia de la clase
                 $conexion = new MetodosConexion($config);
 
-                  // Consulto el campo de la tabla //
-                  $condicion = "email= '$usuario'"; //consulta sql
-               
+                // Consulto el campo de la tabla //
+                $condicion = "email= '$usuario'"; //consulta sql
+
                 // Llamar al método para validar ingreso
-                if ($conexion->validarIngreso($usuario, $contrasenaUser, 'registrodeusuarios',$condicion,'Supervisiones.html')) { // administrador es la tabla//
-                    // Redirigir a la página superviciones
-                    header("Location: Supervisiones.php");
-                    exit();
-                } else {
+                if ($conexion->validarIngreso($usuario, $contrasenaUser, 'registrodeusuarios', $condicion)) {
+                    // Obtener los datos de usuario de acuerdo al correo
+                    $datosNombre = $conexion->obtenerDatos('registrodeusuarios', $condicion);
+                    
+                    // Obtener todas las tipologías
+                    $obtenerTipologias = $conexion->obtenerDatos('tipologias');
+                    
+                    // Verificar si se encontraron datos
+                    if (!empty($datosNombre) && !empty($obtenerTipologias)) {
+                        // Redirigir a la página supervisiones y pasar los nombres del usuario y de las tipologías como parámetros en la URL
+                        $nombreUsuario = urlencode($datosNombre[0]['nombre']);
+                        $tipologias = array_map(function($tipologia) {
+                            return urlencode($tipologia['nombreDeTipologia']);
+                        }, $obtenerTipologias);
+                        header("Location: supervisiones.php?nombre=$nombreUsuario&nombreDeTipologia=" . implode("&nombreDeTipologia=", $tipologias));
+                        exit(); // Es importante salir del script después de la redirección
+                    } else {
+                        echo "No se encontraron datos para el correo $correo";
+                    }
+                }else {
                     echo "Error: Usuario o contraseña incorrectos.";
                 }
 
                 // Cerrar la conexión
                 $conexion->cerrarConexion();
-                
+
             } catch (Exception $e) {
                 echo "Error: No se pudo establecer la conexión con la base de datos. Por favor, intenta más tarde.<br>";
             }
@@ -40,5 +55,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "Error: Usuario y contraseña son obligatorios.";
     }
-}
+} 
 ?>

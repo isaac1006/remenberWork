@@ -49,6 +49,24 @@ form {
     margin-top: 30px;
     border-radius: 20px;
 }
+/* Estilos para el elemento select */
+ form select {
+    /* Propiedades de diseño */
+    width: 100%; /* Ancho completo */
+    padding: 10px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde con color gris */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de fuente */
+    background-color: #f8f8f8; /* Color de fondo */
+    color: #333; /* Color del texto */
+}
+
+/* Estilos para las opciones del select */
+select option {
+    /* Propiedades de diseño */
+    padding: 10px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de fuente */
+}
 
 label {
     color: #e2e2e2; /* Color de texto de las etiquetas */

@@ -25,9 +25,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   $condicion = "superAdmin = '$usuarioAdm'"; //consulta sql
                
                 // Llamar al método para validar ingreso
-                if ($conexion->validarIngreso($usuarioAdm, $contrasenaAdm, 'administrador',$condicion,'formulariosAdministrador.html')) { // administrador es la tabla//
+                if ($conexion->validarIngreso($usuarioAdm, $contrasenaAdm, 'administrador',$condicion)) { // administrador es la tabla//
                     // Redirigir a la página de formularios
-                    header("Location: formularios_admin.php");
+                    header("Location:formulariosAdministrador.html");
                     exit();
                 } else {
                     echo "Error: Usuario o contraseña incorrectos.";

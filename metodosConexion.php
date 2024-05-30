@@ -117,7 +117,7 @@ class MetodosConexion {
         }
     }
        // Método para validar si existen los campos en la base de datos
-    public function validarIngreso($usuario, $contrasena, $tabla, $condicion,$cualquierPagina) {
+    public function validarIngreso($usuario, $contrasena, $tabla, $condicion) {
         // Usar el método obtenerDatos para obtener los datos del usuario
         $datos_usuario = $this->obtenerDatos($tabla, $condicion);
         // Verificar si se encontraron datos del usuario
@@ -128,7 +128,7 @@ class MetodosConexion {
             // Verificar si la contraseña proporcionada coincide con la contraseña del usuario
             if ($contrasena === $contrasena_usuario) {
                 // Redirigir a la siguiente página si los datos son correctos
-                header("Location:$cualquierPagina");
+                return true;
                 exit();
             } else {
                                 
