@@ -5,42 +5,40 @@ require_once 'MetodosConexion.php';
 $config = require 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Unificar campos para hacer validación de ingreso
-    $nombreDeTipologia = $conn->real_escape_string($_POST['nombreDeTipologia']);
+    // Validación de campos del formulario
+    $campos = ['nombre', 'placa', 'tipologia', 'fecha'];
     $validar = true;
 
-    foreach ($nombreDeTipologia as $campo) {
+    foreach ($campos as $campo) {
         if (!isset($_POST[$campo]) || empty($_POST[$campo])) {
             $validar = false;
             break;
         }
     }
 
-    if ($validar) { // Realizar todas las validaciones
-        // Tenemos los valores del formulario en variables
-        $Tipologia = trim($_POST['Tipologia']);
-        $Fecha = trim($_POST['Fecha']);
+    if ($validar) {
+        // Obtenemos los valores del formulario en variables
+        $nombre = trim($_POST['nombre']);
+        $placa = trim($_POST['placa']);
+        $tipologia = trim($_POST['tipologia']);
+        $fecha = trim($_POST['fecha']);
 
         // Iniciamos conexión con base de datos
         $conexion = new MetodosConexion($config);
-        // validamos con el metodo que no exista el correo //
-    
-       
-        if ($conexion->validarCampo()) {
-            echo $mensajeCorreo;
+
+        // Preparamos los datos para la inserción
+        $datos = [
+            'nombre' => $nombre,
+            'placa' => $placa,
+            'tipologia' => $tipologia,
+            'fecha' => $fecha
+        ];
+
+        // Ejecutamos la inserción de los datos
+        if ($conexion->insertarDatos('nombreDeTipologia', $datos)) {
+            echo "Se han insertado los datos correctamente";
         } else {
-            // preparo los datos que enviare con el metodo cargar datos //
-            $datos = [
-                'Tipologia' => $Tipologia,
-                'Fecha' => $Fecha
-                
-            ];
-               // ejecuto la inyeccion de los datos //
-            if ($conexion->insertarDatos('nombreDeTipologia', $datos)) {
-                echo "Se han insertado los datos correctamente";
-            } else {
-                echo "Hubo un error al insertar los datos";
-            }
+            echo "Hubo un error al insertar los datos";
         }
 
         $conexion->cerrarConexion();
