@@ -17,10 +17,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $conexion = new MetodosConexion($config);
 
                   // Consulto el campo de la tabla //
-                  $condicion = "email = '$usuario'"; //consulta sql
+                  $condicion = "email= '$usuario'"; //consulta sql
                
                 // Llamar al método para validar ingreso
-                if ($conexion->validarIngreso($usuario, $contrasenaUser, 'informacion_usuarios',$condicion,'Supervisiones.html')) { // administrador es la tabla//
+                if ($conexion->validarIngreso($usuario, $contrasenaUser, 'registrodeusuarios',$condicion,'Supervisiones.html')) { // administrador es la tabla//
                     // Redirigir a la página superviciones
                     header("Location: Supervisiones.php");
                     exit();
