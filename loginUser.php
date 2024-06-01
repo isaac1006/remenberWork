@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         header("Location: supervisiones.php?nombre=$nombreUsuario&nombreDeTipologia=" . implode("&nombreDeTipologia=", $tipologias));
                         exit(); // Es importante salir del script después de la redirección
                     } else {
-                        echo "No se encontraron datos para el correo $correo";
+                        echo "No se encontraron datos para el correo $usuario";
                     }
                 }else {
                     echo "Error: Usuario o contraseña incorrectos.";
@@ -55,5 +55,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "Error: Usuario y contraseña son obligatorios.";
     }
-} 
+}
 ?>

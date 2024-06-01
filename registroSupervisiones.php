@@ -1,54 +1,57 @@
 <?php
-// Incluir archivo de conexión a la base de datos y configuración
+// Incluye tus archivos de clase
 require_once 'MetodosConexion.php';
+// Cargar configuración
 $config = require 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    var_dump($_POST);
-    // Validación de campos del formulario
-    $campos = ['nombre', 'tipologia', 'placa', 'fecha'];
+    // Unificar campos para hacer validación de ingreso
+    $camposDeUsuario = array('nombreUsuario', 'cedulaUsuario', 'emailUsuario', 'contrasenaUser');
     $validar = true;
 
-    foreach ($campos as $campo) {
+    foreach ($camposDeUsuario as $campo) {
         if (!isset($_POST[$campo]) || empty($_POST[$campo])) {
             $validar = false;
             break;
         }
     }
 
-    if ($validar) {
-        // Obtenemos los valores del formulario en variables
-        $SupervisionesDePost = trim($_POST['supervisiones']);
-        // Obtener los valores del formulario en variables
-        $nombre = trim($_POST['nombre']);
-        $tipologia = trim($_POST['tipologia']);
-        $placa = trim($_POST['placa']);
-        $fecha = trim($_POST['fecha']);
+    if ($validar) { // Realizar todas las validaciones
+        // Tenemos los valores del formulario en variables
+        $nombre = trim($_POST['nombreUsuario']);
+        $cedula = trim($_POST['cedulaUsuario']);
+        $email = trim($_POST['emailUsuario']);
+        $contrasenaUser= trim($_POST['contrasenaUser']);
 
-        // Iniciar conexión con la base de datos
+        // Iniciamos conexión con base de datos
         $conexion = new MetodosConexion($config);
-
-        // Preparar los datos para la inserción
-        $datos = [
-            'nombre' => $nombre,
-            'tipologia' => $tipologia,
-            'placa' => $placa,
-            'fecha' => $fecha
-        ];
-
-        // Verificar si la supervisión ya existe antes de insertarla
-        if ($conexion->campoExiste('supervisiones', 'nombre', $datos)) {
-            echo "La supervisión ya existe, no se puede ingresar nuevamente.";
+            // Verifica la conexión
+            if (!$conexion) {
+                die('Error de conexión: ' . mysqli_connect_error());
+            }
+         // valido con el metodo de existencia que no exista el campo para inyectarlo a la base de datos //
+         // 1 nombrede la tabla // 2 el campo // la variable post //
+        if ($conexion->campoExiste('registrodeusuarios','email',$email)) {
+            echo "El correo ya está registrado. Inicie sesión o use otro correo.";
         } else {
-            // Insertar los datos en la tabla 'supervisiones'
-            $conexion->insertarDatos('supervisiones', $datos);
-            echo "Se han insertado los datos correctamente.";
+            // lado izquiero los campos de las tablas los datos que enviare con el metodo cargar datos //
+            $datos = [
+                'nombre' => $nombre,
+                'cedula' => $cedula,
+                'email' => $email,
+                'contrasena' => $contrasenaUser
+            ];
+               // ejecuto la inyeccion de los datos //
+            if ($conexion->insertarDatos('registrodeusuarios', $datos)) {
+                echo "Se han insertado los datos correctamente";
+            } else {
+                echo "Hubo un error al insertar los datos mentiras";
+            }
         }
 
-        // Cerrar la conexión
         $conexion->cerrarConexion();
     } else {
-        echo "Todos los campos son obligatorios.";
+        echo "Todos los campos son obligatorios";
     }
 }
 ?>

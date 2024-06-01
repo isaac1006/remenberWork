@@ -1,3 +1,17 @@
+<?php
+// Incluir archivo de conexión a la base de datos y configuración
+require_once 'MetodosConexion.php';
+$config = require 'config.php';
+
+// Iniciar conexión con la base de datos
+$conexion = new MetodosConexion($config);
+
+// Obtener todas las tipologías
+$obtenerTipologias = $conexion->obtenerDatos('tipologias');
+
+// Cerrar la conexión
+$conexion->cerrarConexion();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,47 +33,38 @@
             }
         ?>
     </header>
-<body>
+<body>  
     <div class="IngresoSistema">
-        <label for="">visualizar supervision realizada</label>
-        <textarea name="" id=""></textarea>
+            <form action="registroSupervisiones.php" method="post">
+                <label for="cargarTipologia">Seleccione la Tipología a registrar: </label>
+                <select name="tipologia" required>
+                    <?php
+                    // Verificar si se encontraron tipologías
+                    if (!empty($obtenerTipologias)) {
+                        // Iterar sobre cada tipología y crear una opción en el select
+                        foreach ($obtenerTipologias as $tipologia) {
+                            $nombreTipologia = htmlspecialchars($tipologia['nombreDeTipologia']);
+                            echo "<option value=\"$nombreTipologia\">$nombreTipologia</option>";
+                        }
+                    } else {
+                        // Si no se encontraron tipologías, mostrar un mensaje
+                        echo "<option value=\"\">Error: No se han encontrado tipologías.</option>";
+                    }
+                    ?>
+                </select><br>
 
+                <label for="nombre">Nombre:</label>
+                <input type="text" name="nombre" required><br>
+
+                <label for="placa">Placa de vehículo:</label>
+                <input type="text" name="placa" required><br>
+                
+                <label for="fecha">Fecha de supervisión:</label>
+                <input type="date" name="fecha" required><br>
+
+                <input type="submit" value="Registrar">
+            </form>
     </div>
-    
-    <div class="IngresoSistema">
-        <form action="registroSupervisiones.php" method="post">
-        <label for="cargarTipologia">Selecciones la Tipologia a registrar: </label>
-        <select name="cargarTipologia" id="cargarTipologia">
-        <?php
-        // Verificar si se pasaron los datos en la URL
-        if (isset($_GET['nombreDeTipologia'])) {
-            // Obtener los nombres de las tipologías de la URL
-            $nombresTipologias = explode("&nombreDeTipologia=", $_GET['nombreDeTipologia']);
-            // Eliminar el primer elemento del arreglo, que está vacío
-            array_shift($nombresTipologias);
-            
-            // Iterar sobre cada nombre de tipología y crear una opción en el select
-            foreach ($nombresTipologias as $nombreTipologia) {
-                echo "<option value=\"$nombreTipologia\">$nombreTipologia</option>";
-            }
-        } else {
-            // Si no se pasaron los datos en la URL, mostrar un mensaje de error
-            echo "<option value=\"\">Error: No se han recibido los datos necesarios.</option>";
-        }
-        ?>
-        </select>
-        <form action="registroSupervisiones.php" method="POST">
-        <label for="Placa">Placa de vehiculo:</label>
-        <input type="text" name="Placa"  required><br>
-        
-        <label for="Fecha">Fecha de supervicion:</label>
-        <input type="date" name="Fecha"  required><br>
-
-        
-        <input type="submit" value="Registrar">
-        </form>
-    </div>
-
 </body>
 <footer>
     <p>&copy; Todos los derechos reservados</p>

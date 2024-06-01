@@ -1,13 +1,11 @@
 <?php
-var_dump($_POST);
 
 // Incluye tu archivo de clase
 require_once 'MetodosConexion.php';
 // Cargar configuración
 $config = require 'config.php';
 
-// Depuración: mostrar la configuración cargada
-var_dump($config);
+// Depuración: mostrar la configuración cargada 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verificar que los campos no sean nulos

@@ -38,10 +38,11 @@ header {
     border-radius: 8px;
     margin-top: 2px;
     text-align: center;
-    height: 50vh;
+    height:auto;
 }
 
 form {
+    width: 100%;
     background-color: #102f3d; /* Color de fondo del formulario */
     display: flex;
     flex-direction: column;
@@ -52,7 +53,7 @@ form {
 /* Estilos para el elemento select */
  form select {
     /* Propiedades de diseño */
-    width: 100%; /* Ancho completo */
+    width: 5%; /* Ancho completo */
     padding: 10px; /* Espaciado interno */
     border: 1px solid #ccc; /* Borde con color gris */
     border-radius: 5px; /* Bordes redondeados */
@@ -102,4 +103,7 @@ footer {
     font-size: large;
     padding: 10px;
     text-align: center;
+}
+.mover{
+    margin-bottom: 2px;
 }
