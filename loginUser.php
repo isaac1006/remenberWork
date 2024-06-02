@@ -1,4 +1,5 @@
 <?php
+session_start(); // iniciar sesion al comienzo del script //
 // Incluye tu archivo de clase
 require_once 'MetodosConexion.php';
 // Cargar configuración
@@ -29,12 +30,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     
                     // Verificar si se encontraron datos
                     if (!empty($datosNombre) && !empty($obtenerTipologias)) {
-                        // Redirigir a la página supervisiones y pasar los nombres del usuario y de las tipologías como parámetros en la URL
-                        $nombreUsuario = urlencode($datosNombre[0]['nombre']);
-                        $tipologias = array_map(function($tipologia) {
-                            return urlencode($tipologia['nombreDeTipologia']);
-                        }, $obtenerTipologias);
-                        header("Location: supervisiones.php?nombre=$nombreUsuario&nombreDeTipologia=" . implode("&nombreDeTipologia=", $tipologias));
+                          // Almacenar datos en la sesión
+                          $_SESSION['nombre'] = $datosNombre[0]['nombre'];
+                          $_SESSION['tipologias'] = $obtenerTipologias;
+  
+                         header("Location: supervisiones.php");
                         exit(); // Es importante salir del script después de la redirección
                     } else {
                         echo "No se encontraron datos para el correo $usuario";

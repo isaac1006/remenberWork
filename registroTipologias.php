@@ -5,37 +5,32 @@ require_once 'MetodosConexion.php';
 $config = require 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    var_dump($_POST);
     // Validación de campos del formulario
-    $campos = ['supervisiones'];
-    $validar = true;
-
-    foreach ($campos as $campo) {
-        if (!isset($_POST[$campo]) || empty($_POST[$campo])) {
-            $validar = false;
-            break;
-        }
-    }
-    if ($validar) {
-        // Obtenemos los valores del formulario en variables
-        $tipologiaDePost = trim($_POST['nombreDeTipologia']);
+    if (isset($_POST['nombreDeTipologia']) && !empty($_POST['nombreDeTipologia'])) {
         // Iniciamos conexión con base de datos
         $conexion = new MetodosConexion($config);
-            // preparo los datos que enviare con el metodo cargar datos //
-            $datos = [
-                'nombreDeTipologia' => $tipologiaDePost   
-            ];
-            if($conexion->campoExiste('tipologias','nombreDeTipologia',$tipologiaDePost)) {
-                echo"el campo ya existe no se puede ingresar";
-            }else {
+        $nombreDeTipologia = $_POST['nombreDeTipologia'];
 
-                $conexion->insertarDatos('tipologias', $datos);
-                    echo"Se han insertado los datos correctamente"; 
-            }
-               // ejecuto la inyeccion de los datos 
+        // Verificar si el campo ya existe en la base de datos
+        if($conexion->campoExiste('tipologias','nombreDeTipologia', $nombreDeTipologia)) {
+            echo "El campo ya existe, no se puede ingresar.";
+            header("Location:formulariosAdministrador.html");
+            exit;
+        } else {
+            // Preparar los datos para la inserción
+            $datos = [
+                'nombreDeTipologia' => $nombreDeTipologia
+            ];
+
+            // Insertar los datos en la base de datos
+            $conexion->insertarDatos('tipologias', $datos);
+            echo "Se han insertado los datos correctamente.";
+        }
+
+        // Cerrar conexión
         $conexion->cerrarConexion();
     } else {
-        echo "Todos los campos son obligatorios";
+        echo "El campo 'nombreDeTipologia' es obligatorio.";
     }
 }
 ?>

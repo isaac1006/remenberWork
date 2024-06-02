@@ -1,72 +1,69 @@
 <?php
-// Incluir archivo de conexión a la base de datos y configuración
-require_once 'MetodosConexion.php';
-$config = require 'config.php';
+session_start(); // Inicia la sesión
 
-// Iniciar conexión con la base de datos
-$conexion = new MetodosConexion($config);
+// Verificar si el usuario está autenticado
+if (!isset($_SESSION['nombre'])) {
+    header("Location: login.php");
+    exit;
+}
 
-// Obtener todas las tipologías
-$obtenerTipologias = $conexion->obtenerDatos('tipologias');
+// Obtener los datos de la sesión
+$nombreUsuario = $_SESSION['nombre'];
+$tipologias = $_SESSION['tipologias'];
 
-// Cerrar la conexión
-$conexion->cerrarConexion();
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Document</title>
+    <title>Registro de Supervisiones</title>
 </head>
-<header>
-        <?php
-            // Verificar si se ha pasado el nombre del usuario en la URL
-            if (isset($_GET['nombre'])) {
-                // Obtener el nombre del usuario de la URL
-                $nombreUsuario = $_GET['nombre'];
-                // Mostrar el nombre del usuario en el encabezado
-                echo "<h1>Bienvenido(a): $nombreUsuario , registra una nueva Supervisión </h1>";
+<body>
+<header class="paginaInicial">
+    <?php
+    // Mostrar el nombre del usuario en el encabezado
+    echo "<h1>Bienvenido(a): " . htmlspecialchars($nombreUsuario) . "</h1>";
+    echo "<h2>Registra una nueva Supervisión</h2>";
+    echo '<li><a href="logout.php">Cerrar sesión</a></li>';
+    ?>
+</header>
+<div class="IngresoSistema">
+    <form action="registroSupervisiones.php" method="post">
+        
+        <!-- Campo oculto para enviar el nombre del usuario -->
+         <input type="hidden" name="nombreUsuario" value="<?php echo htmlspecialchars($nombreUsuario); ?>">
+
+        <label for="tipologia">Seleccione la Tipología a registrar: </label>
+        <select name="tipologia" required>
+            <?php
+            // Verificar si se encontraron tipologías
+            if (!empty($tipologias)) {
+                // Iterar sobre cada tipología y crear una opción en el select
+                foreach ($tipologias as $tipologia) {
+                    $nombreTipologia = htmlspecialchars($tipologia['nombreDeTipologia']);
+                    echo "<option value=\"$nombreTipologia\">$nombreTipologia</option>";
+                }
             } else {
-                echo "<h1>Bienvenido, registra una nueva Supervisión </h1>";
+                // Si no se encontraron tipologías, mostrar un mensaje
+                echo "<option value=\"\">Error: No se han encontrado tipologías.</option>";
             }
-        ?>
-    </header>
-<body>  
-    <div class="IngresoSistema">
-            <form action="registroSupervisiones.php" method="post">
-                <label for="cargarTipologia">Seleccione la Tipología a registrar: </label>
-                <select name="tipologia" required>
-                    <?php
-                    // Verificar si se encontraron tipologías
-                    if (!empty($obtenerTipologias)) {
-                        // Iterar sobre cada tipología y crear una opción en el select
-                        foreach ($obtenerTipologias as $tipologia) {
-                            $nombreTipologia = htmlspecialchars($tipologia['nombreDeTipologia']);
-                            echo "<option value=\"$nombreTipologia\">$nombreTipologia</option>";
-                        }
-                    } else {
-                        // Si no se encontraron tipologías, mostrar un mensaje
-                        echo "<option value=\"\">Error: No se han encontrado tipologías.</option>";
-                    }
-                    ?>
-                </select><br>
+            ?>
+        </select><br>
 
-                <label for="nombre">Nombre:</label>
-                <input type="text" name="nombre" required><br>
 
-                <label for="placa">Placa de vehículo:</label>
-                <input type="text" name="placa" required><br>
-                
-                <label for="fecha">Fecha de supervisión:</label>
-                <input type="date" name="fecha" required><br>
+        <label for="placa">Placa de vehículo:</label>
+        <input type="text" name="placa" required><br>
+        
+        <label for="fecha">Fecha de supervisión:</label>
+        <input type="date" name="fecha" required><br>
 
-                <input type="submit" value="Registrar">
-            </form>
-    </div>
-</body>
+        <input type="submit" value="Registrar">
+    </form>
+</div>
 <footer>
     <p>&copy; Todos los derechos reservados</p>
 </footer>
+</body>
 </html>

@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #e2e2e2; /* Color de fondo */
+    background-image: url('/imagenes/fondo.jpeg'); /* Agrega la ruta de tu imagen */
     color: #281900; /* Color de texto principal */
     margin: 0;
     padding: 0;
@@ -15,6 +15,7 @@ header {
     text-align: center;
     color: #e2e2e2; /* Color de texto del encabezado */
     font-size: x-large;
+    opacity: 95%;
 }
 .paginaInicial li {
     display: inline-block;
@@ -36,9 +37,10 @@ header {
     padding: 30px;
     background-color: #0e1d28; /* Color de fondo del contenedor de ingreso al sistema */
     border-radius: 8px;
-    margin-top: 2px;
+    margin-top: 0px;
     text-align: center;
-    height:auto;
+    height:50%;
+    opacity: 80%;
 }
 
 form {
@@ -53,7 +55,7 @@ form {
 /* Estilos para el elemento select */
  form select {
     /* Propiedades de diseño */
-    width: 5%; /* Ancho completo */
+    width: 50%; /* Ancho completo */
     padding: 10px; /* Espaciado interno */
     border: 1px solid #ccc; /* Borde con color gris */
     border-radius: 5px; /* Bordes redondeados */
@@ -103,7 +105,8 @@ footer {
     font-size: large;
     padding: 10px;
     text-align: center;
+    opacity: 98%;
 }
 .mover{
-    margin-bottom: 2px;
+    margin-bottom: 1px;
 }
